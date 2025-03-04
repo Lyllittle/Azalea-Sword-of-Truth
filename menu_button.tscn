@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://e0d1m76s4xlo"]
 
-[ext_resource type="Script" path="res://menu_button.gd" id="1_7mkvn"]
+[ext_resource type="Script" uid="uid://ck4al0jkxwmut" path="res://menu_button.gd" id="1_7mkvn"]
 
 [node name="MenuButton" type="Button"]
 custom_minimum_size = Vector2(200, 50)

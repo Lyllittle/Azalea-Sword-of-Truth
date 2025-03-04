@@ -1,9 +1,9 @@
 [gd_scene load_steps=5 format=3 uid="uid://crs8a4k4mm6vn"]
 
-[ext_resource type="Script" path="res://mana_bottles.gd" id="1_3qf3s"]
+[ext_resource type="Script" uid="uid://dkqqr8klk7qte" path="res://mana_bottles.gd" id="1_3qf3s"]
 [ext_resource type="Texture2D" uid="uid://1u0k0ix8v1gh" path="res://EmptyHealth.tres" id="1_ly3u5"]
 [ext_resource type="Texture2D" uid="uid://yeby0ddokfxe" path="res://Assets/SpriteSheets/healthbartexture.tres" id="2_8kk43"]
-[ext_resource type="Script" path="res://health.gd" id="3_jd72g"]
+[ext_resource type="Script" uid="uid://dt15lnqjp112" path="res://health.gd" id="3_jd72g"]
 
 [node name="Ui" type="VBoxContainer"]
 custom_minimum_size = Vector2(200, 75)

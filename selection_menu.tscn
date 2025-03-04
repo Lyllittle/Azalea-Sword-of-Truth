@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://dhioqm0l8yxkb"]
 
-[ext_resource type="Script" path="res://selection_menu.gd" id="1_u8lw6"]
+[ext_resource type="Script" uid="uid://bkxbatb8i4u6n" path="res://selection_menu.gd" id="1_u8lw6"]
 [ext_resource type="Texture2D" uid="uid://ug0l8bbkjxve" path="res://Assets/Sprites/SelectMenuButtonBasicSelected.tres" id="2_wb1t2"]
 [ext_resource type="LabelSettings" uid="uid://bbe3jc2iwquvr" path="res://Assets/Settings/SelectMenuButtonLabelSettings.tres" id="3_v3pqu"]
 [ext_resource type="PackedScene" uid="uid://cxw1two1qu3xi" path="res://boss.tscn" id="4_dcokt"]

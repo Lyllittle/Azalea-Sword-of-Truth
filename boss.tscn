@@ -1,8 +1,8 @@
 [gd_scene load_steps=5 format=3 uid="uid://cxw1two1qu3xi"]
 
-[ext_resource type="Script" path="res://boss.gd" id="1_2wbgb"]
+[ext_resource type="Script" uid="uid://ctf6guxqapled" path="res://boss.gd" id="1_2wbgb"]
 [ext_resource type="LabelSettings" uid="uid://bbe3jc2iwquvr" path="res://Assets/Settings/SelectMenuButtonLabelSettings.tres" id="2_lan3o"]
-[ext_resource type="Script" path="res://minion_queue.gd" id="2_tempe"]
+[ext_resource type="Script" uid="uid://du0r5dl5o11b0" path="res://minion_queue.gd" id="2_tempe"]
 [ext_resource type="Texture2D" uid="uid://yeby0ddokfxe" path="res://Assets/SpriteSheets/healthbartexture.tres" id="3_e1vrg"]
 
 [node name="Boss" type="VBoxContainer"]

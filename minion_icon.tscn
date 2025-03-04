@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://bn0w10h3inhxo"]
 
-[ext_resource type="Script" path="res://minion_icon.gd" id="1_64xsb"]
+[ext_resource type="Script" uid="uid://1vn65ut3ifhn" path="res://minion_icon.gd" id="1_64xsb"]
 [ext_resource type="LabelSettings" uid="uid://bbe3jc2iwquvr" path="res://Assets/Settings/SelectMenuButtonLabelSettings.tres" id="2_4f2sq"]
 
 [sub_resource type="Gradient" id="Gradient_o23oq"]
