@@ -1,0 +1,62 @@
+[gd_scene load_steps=7 format=3 uid="uid://dvu2xc674sqlp"]
+
+[ext_resource type="Script" path="res://main.gd" id="1_idvd7"]
+[ext_resource type="PackedScene" uid="uid://cnkudchoig5jv" path="res://stat_sheet.tscn" id="2_l2f38"]
+[ext_resource type="PackedScene" uid="uid://crs8a4k4mm6vn" path="res://ui.tscn" id="3_hugtm"]
+[ext_resource type="Script" path="res://button.gd" id="4_nnsdd"]
+
+[sub_resource type="Gradient" id="Gradient_7j3e3"]
+colors = PackedColorArray(0.858824, 0, 0, 1, 0.988235, 0.388235, 0.403922, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_iv2an"]
+gradient = SubResource("Gradient_7j3e3")
+fill_from = Vector2(0.768293, 1)
+
+[node name="Main" type="Node2D"]
+script = ExtResource("1_idvd7")
+
+[node name="MainLayer" type="CanvasLayer" parent="."]
+layer = 0
+
+[node name="TextureRect" type="TextureRect" parent="MainLayer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("GradientTexture2D_iv2an")
+
+[node name="Button" type="Button" parent="MainLayer"]
+custom_minimum_size = Vector2(500, 250)
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -250.0
+offset_top = -125.0
+offset_right = 250.0
+offset_bottom = 125.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "START GAME"
+script = ExtResource("4_nnsdd")
+
+[node name="TopLayer" type="CanvasLayer" parent="."]
+
+[node name="Ui" parent="TopLayer" instance=ExtResource("3_hugtm")]
+anchors_preset = -1
+anchor_left = 0.975
+anchor_top = 0.025
+anchor_right = 0.975
+anchor_bottom = 0.025
+offset_left = -200.0
+offset_bottom = 75.0
+grow_horizontal = 0
+
+[node name="StatSheet" parent="TopLayer" instance=ExtResource("2_l2f38")]
+anchors_preset = -1
+anchor_left = 0.025
+anchor_top = 0.025
+anchor_right = 0.475
+anchor_bottom = 0.975

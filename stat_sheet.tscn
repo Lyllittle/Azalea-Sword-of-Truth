@@ -1,0 +1,21 @@
+[gd_scene load_steps=2 format=3 uid="uid://cnkudchoig5jv"]
+
+[ext_resource type="Script" path="res://stat_sheet.gd" id="1_ign74"]
+
+[node name="StatSheet" type="VBoxContainer"]
+script = ExtResource("1_ign74")
+
+[node name="StatsContainer" type="VBoxContainer" parent="."]
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="AttacksContainer" type="VBoxContainer" parent="."]
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="SpellsContainer" type="VBoxContainer" parent="."]
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 2
+size_flags_vertical = 3

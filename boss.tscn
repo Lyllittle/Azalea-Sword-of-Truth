@@ -1,0 +1,44 @@
+[gd_scene load_steps=5 format=3 uid="uid://cxw1two1qu3xi"]
+
+[ext_resource type="Script" path="res://boss.gd" id="1_2wbgb"]
+[ext_resource type="LabelSettings" uid="uid://bbe3jc2iwquvr" path="res://Assets/Settings/SelectMenuButtonLabelSettings.tres" id="2_lan3o"]
+[ext_resource type="Script" path="res://minion_queue.gd" id="2_tempe"]
+[ext_resource type="Texture2D" uid="uid://yeby0ddokfxe" path="res://Assets/SpriteSheets/healthbartexture.tres" id="3_e1vrg"]
+
+[node name="Boss" type="VBoxContainer"]
+custom_minimum_size = Vector2(400, 150)
+size_flags_horizontal = 3
+size_flags_vertical = 3
+script = ExtResource("1_2wbgb")
+
+[node name="Label" type="Label" parent="."]
+custom_minimum_size = Vector2(100, 50)
+layout_mode = 2
+size_flags_horizontal = 4
+text = "BOSS"
+label_settings = ExtResource("2_lan3o")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="TextureProgressBar" type="TextureProgressBar" parent="."]
+custom_minimum_size = Vector2(200, 25)
+layout_mode = 2
+size_flags_horizontal = 4
+value = 50.0
+fill_mode = 1
+nine_patch_stretch = true
+texture_progress = ExtResource("3_e1vrg")
+texture_progress_offset = Vector2(-100, 0)
+
+[node name="Label2" type="Label" parent="."]
+layout_mode = 2
+text = "Incoming minions are:"
+label_settings = ExtResource("2_lan3o")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+custom_minimum_size = Vector2(400, 100)
+layout_mode = 2
+alignment = 1
+script = ExtResource("2_tempe")

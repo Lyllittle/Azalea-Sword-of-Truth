@@ -1,0 +1,26 @@
+[gd_resource type="AnimatedTexture" load_steps=8 format=3 uid="uid://yeby0ddokfxe"]
+
+[ext_resource type="Texture2D" uid="uid://ccm8suuu8u5ch" path="res://Assets/SpriteSheets/healthbar1.png" id="1_81iih"]
+[ext_resource type="Texture2D" uid="uid://dt0d0mkuyo8a" path="res://Assets/SpriteSheets/healthbar2.png" id="2_pw48e"]
+[ext_resource type="Texture2D" uid="uid://deq6bgy75k0hc" path="res://Assets/SpriteSheets/healthbar3.png" id="3_lgj6r"]
+[ext_resource type="Texture2D" uid="uid://beaxomw3pkg5q" path="res://Assets/SpriteSheets/healthbar4.png" id="4_w83r7"]
+[ext_resource type="Texture2D" uid="uid://b5npevkjfbval" path="res://Assets/SpriteSheets/healthbar5.png" id="5_5ajve"]
+[ext_resource type="Texture2D" uid="uid://bybww3y8tu45q" path="res://Assets/SpriteSheets/healthbar6.png" id="6_fqogu"]
+[ext_resource type="Texture2D" uid="uid://cnn6uvaxm5bya" path="res://Assets/SpriteSheets/healthbar7.png" id="7_qatmu"]
+
+[resource]
+frames = 7
+frame_0/texture = ExtResource("1_81iih")
+frame_0/duration = 0.15
+frame_1/texture = ExtResource("2_pw48e")
+frame_1/duration = 0.15
+frame_2/texture = ExtResource("3_lgj6r")
+frame_2/duration = 0.15
+frame_3/texture = ExtResource("4_w83r7")
+frame_3/duration = 0.15
+frame_4/texture = ExtResource("5_5ajve")
+frame_4/duration = 0.15
+frame_5/texture = ExtResource("6_fqogu")
+frame_5/duration = 0.15
+frame_6/texture = ExtResource("7_qatmu")
+frame_6/duration = 0.15

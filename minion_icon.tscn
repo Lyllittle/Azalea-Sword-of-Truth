@@ -1,0 +1,57 @@
+[gd_scene load_steps=5 format=3 uid="uid://bn0w10h3inhxo"]
+
+[ext_resource type="Script" path="res://minion_icon.gd" id="1_64xsb"]
+[ext_resource type="LabelSettings" uid="uid://bbe3jc2iwquvr" path="res://Assets/Settings/SelectMenuButtonLabelSettings.tres" id="2_4f2sq"]
+
+[sub_resource type="Gradient" id="Gradient_o23oq"]
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_wankq"]
+gradient = SubResource("Gradient_o23oq")
+
+[node name="MinionIcon" type="MarginContainer"]
+custom_minimum_size = Vector2(200, 200)
+offset_right = 200.0
+offset_bottom = 200.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+script = ExtResource("1_64xsb")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+layout_mode = 2
+texture = SubResource("GradientTexture2D_wankq")
+
+[node name="GridContainer" type="GridContainer" parent="."]
+clip_contents = true
+custom_minimum_size = Vector2(200, 200)
+layout_mode = 2
+columns = 2
+
+[node name="MovePatternIcon" type="TextureRect" parent="GridContainer"]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+stretch_mode = 5
+
+[node name="ShootPatternIcon" type="TextureRect" parent="GridContainer"]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+stretch_mode = 5
+
+[node name="SpecialEffectIcon" type="TextureRect" parent="GridContainer"]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+stretch_mode = 5
+
+[node name="Label" type="Label" parent="GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+text = "1"
+label_settings = ExtResource("2_4f2sq")
+horizontal_alignment = 2
+vertical_alignment = 2

@@ -1,0 +1,29 @@
+[gd_scene load_steps=5 format=3 uid="uid://crs8a4k4mm6vn"]
+
+[ext_resource type="Script" path="res://mana_bottles.gd" id="1_3qf3s"]
+[ext_resource type="Texture2D" uid="uid://1u0k0ix8v1gh" path="res://EmptyHealth.tres" id="1_ly3u5"]
+[ext_resource type="Texture2D" uid="uid://yeby0ddokfxe" path="res://Assets/SpriteSheets/healthbartexture.tres" id="2_8kk43"]
+[ext_resource type="Script" path="res://health.gd" id="3_jd72g"]
+
+[node name="Ui" type="VBoxContainer"]
+custom_minimum_size = Vector2(200, 75)
+size_flags_horizontal = 4
+size_flags_vertical = 4
+alignment = 1
+
+[node name="Health" type="TextureProgressBar" parent="."]
+custom_minimum_size = Vector2(200, 25)
+layout_mode = 2
+value = 75.0
+fill_mode = 1
+nine_patch_stretch = true
+texture_under = ExtResource("1_ly3u5")
+texture_progress = ExtResource("2_8kk43")
+script = ExtResource("3_jd72g")
+
+[node name="ManaBottles" type="HBoxContainer" parent="."]
+custom_minimum_size = Vector2(200, 25)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+script = ExtResource("1_3qf3s")

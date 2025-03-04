@@ -1,0 +1,63 @@
+[gd_scene load_steps=4 format=3 uid="uid://oiqx27kytorm"]
+
+[ext_resource type="Script" path="res://menu.gd" id="1_5fy8q"]
+
+[sub_resource type="Gradient" id="Gradient_wcwde"]
+offsets = PackedFloat32Array(0, 0.481884, 1)
+colors = PackedColorArray(0.729412, 0.341176, 0.258824, 1, 0.788235, 0.027451, 0.027451, 1, 0.870588, 0.219608, 0.329412, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_bbktk"]
+gradient = SubResource("Gradient_wcwde")
+fill_from = Vector2(0, 1)
+fill_to = Vector2(0, 0)
+
+[node name="Menu" type="CanvasLayer" groups=["menu"]]
+script = ExtResource("1_5fy8q")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+custom_minimum_size = Vector2(100, 100)
+anchors_preset = -1
+anchor_left = 0.125
+anchor_top = 0.125
+anchor_right = 0.875
+anchor_bottom = 0.875
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("GradientTexture2D_bbktk")
+
+[node name="TabContainer" type="TabContainer" parent="."]
+anchors_preset = -1
+anchor_left = 0.125
+anchor_top = 0.125
+anchor_right = 0.875
+anchor_bottom = 0.875
+grow_horizontal = 2
+grow_vertical = 2
+tab_alignment = 1
+current_tab = 0
+
+[node name="Save and Load" type="CenterContainer" parent="TabContainer"]
+layout_mode = 2
+metadata/_tab_index = 0
+
+[node name="GridContainer" type="VBoxContainer" parent="TabContainer/Save and Load"]
+layout_mode = 2
+
+[node name="Save" type="Button" parent="TabContainer/Save and Load/GridContainer"]
+custom_minimum_size = Vector2(100, 50)
+layout_mode = 2
+focus_neighbor_bottom = NodePath("../Load")
+text = "Save Game"
+
+[node name="Load" type="Button" parent="TabContainer/Save and Load/GridContainer"]
+custom_minimum_size = Vector2(100, 50)
+layout_mode = 2
+focus_neighbor_top = NodePath("../Save")
+focus_neighbor_bottom = NodePath("../Reset")
+text = "Load Game"
+
+[node name="Reset" type="Button" parent="TabContainer/Save and Load/GridContainer"]
+custom_minimum_size = Vector2(100, 50)
+layout_mode = 2
+focus_neighbor_top = NodePath("../Load")
+text = "Reset Game"

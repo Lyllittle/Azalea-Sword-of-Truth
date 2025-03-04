@@ -1,0 +1,39 @@
+[gd_scene load_steps=7 format=3 uid="uid://kfjhbj3gmv3l"]
+
+[ext_resource type="Script" path="res://player_projectile.gd" id="1_yhvy4"]
+[ext_resource type="SpriteFrames" uid="uid://b8yu5pftanl55" path="res://Assets/SpriteSheets/sprites.tres" id="2_tcmwj"]
+
+[sub_resource type="Gradient" id="Gradient_wqchj"]
+colors = PackedColorArray(0, 1, 0, 1, 0, 1, 0.109804, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_gfyro"]
+gradient = SubResource("Gradient_wqchj")
+width = 30
+height = 30
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_1xr4n"]
+radius = 30.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_ig454"]
+radius = 150.0
+
+[node name="PlayerProjectile" type="Area2D" groups=["player_projectiles"]]
+script = ExtResource("1_yhvy4")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+scale = Vector2(8, 8)
+sprite_frames = ExtResource("2_tcmwj")
+frame_progress = 0.572832
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+visible = false
+texture = SubResource("GradientTexture2D_gfyro")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_1xr4n")
+debug_color = Color(1.29953e-06, 0.63117, 0.464975, 0.42)
+
+[node name="AreaOfEffect" type="Area2D" parent="."]
+
+[node name="CollisionShapeArea_Damage" type="CollisionShape2D" parent="AreaOfEffect" groups=["player_projectiles"]]
+shape = SubResource("CircleShape2D_ig454")

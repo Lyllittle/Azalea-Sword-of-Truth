@@ -1,0 +1,115 @@
+[gd_scene load_steps=5 format=3 uid="uid://dhioqm0l8yxkb"]
+
+[ext_resource type="Script" path="res://selection_menu.gd" id="1_u8lw6"]
+[ext_resource type="Texture2D" uid="uid://ug0l8bbkjxve" path="res://Assets/Sprites/SelectMenuButtonBasicSelected.tres" id="2_wb1t2"]
+[ext_resource type="LabelSettings" uid="uid://bbe3jc2iwquvr" path="res://Assets/Settings/SelectMenuButtonLabelSettings.tres" id="3_v3pqu"]
+[ext_resource type="PackedScene" uid="uid://cxw1two1qu3xi" path="res://boss.tscn" id="4_dcokt"]
+
+[node name="SelectionMenu" type="CanvasLayer"]
+script = ExtResource("1_u8lw6")
+
+[node name="Label" type="Label" parent="."]
+custom_minimum_size = Vector2(500, 50)
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 0.75
+anchor_right = 0.5
+anchor_bottom = 0.75
+grow_horizontal = 2
+grow_vertical = 0
+text = "What will you do?"
+label_settings = ExtResource("3_v3pqu")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="GridContainer" type="GridContainer" parent="."]
+anchors_preset = -1
+anchor_left = 0.25
+anchor_top = 0.75
+anchor_right = 0.75
+anchor_bottom = 1.0
+columns = 2
+
+[node name="VBoxContainer" type="MarginContainer" parent="GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Button1" type="TextureButton" parent="GridContainer/VBoxContainer"]
+custom_minimum_size = Vector2(250, 50)
+layout_mode = 2
+focus_neighbor_right = NodePath("../../VBoxContainer2/Button2")
+focus_neighbor_bottom = NodePath("../../VBoxContainer3/Button3")
+texture_normal = ExtResource("2_wb1t2")
+stretch_mode = 5
+
+[node name="Label1" type="Label" parent="GridContainer/VBoxContainer"]
+custom_minimum_size = Vector2(250, 50)
+layout_mode = 2
+text = "Test"
+label_settings = ExtResource("3_v3pqu")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="VBoxContainer2" type="MarginContainer" parent="GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Button2" type="TextureButton" parent="GridContainer/VBoxContainer2"]
+custom_minimum_size = Vector2(250, 50)
+layout_mode = 2
+focus_neighbor_left = NodePath("../../VBoxContainer/Button1")
+focus_neighbor_bottom = NodePath("../../VBoxContainer4/Button4")
+stretch_mode = 5
+
+[node name="Label2" type="Label" parent="GridContainer/VBoxContainer2"]
+custom_minimum_size = Vector2(250, 50)
+layout_mode = 2
+label_settings = ExtResource("3_v3pqu")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="VBoxContainer3" type="MarginContainer" parent="GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Button3" type="TextureButton" parent="GridContainer/VBoxContainer3"]
+custom_minimum_size = Vector2(250, 50)
+layout_mode = 2
+focus_neighbor_top = NodePath("../../VBoxContainer/Button1")
+focus_neighbor_right = NodePath("../../VBoxContainer4/Button4")
+stretch_mode = 5
+
+[node name="Label3" type="Label" parent="GridContainer/VBoxContainer3"]
+custom_minimum_size = Vector2(250, 50)
+layout_mode = 2
+label_settings = ExtResource("3_v3pqu")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="VBoxContainer4" type="MarginContainer" parent="GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Button4" type="TextureButton" parent="GridContainer/VBoxContainer4"]
+custom_minimum_size = Vector2(250, 50)
+layout_mode = 2
+focus_neighbor_left = NodePath("../../VBoxContainer3/Button3")
+focus_neighbor_top = NodePath("../../VBoxContainer2/Button2")
+stretch_mode = 5
+
+[node name="Label4" type="Label" parent="GridContainer/VBoxContainer4" groups=["selection_screen"]]
+custom_minimum_size = Vector2(250, 50)
+layout_mode = 2
+label_settings = ExtResource("3_v3pqu")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Boss" parent="." instance=ExtResource("4_dcokt")]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+grow_horizontal = 2

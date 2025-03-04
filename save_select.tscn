@@ -1,0 +1,66 @@
+[gd_scene load_steps=3 format=3 uid="uid://cb3lgf0857p21"]
+
+[ext_resource type="Script" path="res://save_select.gd" id="1_57svx"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_2k25q"]
+font_size = 64
+font_color = Color(1, 0.65098, 1, 1)
+
+[node name="SaveSelect" type="CanvasLayer"]
+script = ExtResource("1_57svx")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color(0.370364, 0.370364, 0.370364, 1)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+custom_minimum_size = Vector2(500, 500)
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -304.0
+offset_top = -250.0
+offset_right = 304.0
+offset_bottom = 250.0
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 1
+
+[node name="RichTextLabel" type="Label" parent="VBoxContainer"]
+custom_minimum_size = Vector2(200, 50)
+layout_mode = 2
+text = "Select Save"
+label_settings = SubResource("LabelSettings_2k25q")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="CenterContainer" type="CenterContainer" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/CenterContainer"]
+custom_minimum_size = Vector2(300, 100)
+layout_mode = 2
+alignment = 1
+
+[node name="Save1Button" type="Button" parent="VBoxContainer/CenterContainer/HBoxContainer"]
+custom_minimum_size = Vector2(200, 100)
+layout_mode = 2
+focus_neighbor_right = NodePath("../Save2Button")
+text = "Save 1"
+
+[node name="Save2Button" type="Button" parent="VBoxContainer/CenterContainer/HBoxContainer"]
+custom_minimum_size = Vector2(200, 100)
+layout_mode = 2
+focus_neighbor_left = NodePath("../Save1Button")
+focus_neighbor_right = NodePath("../Save3Button")
+text = "Save 2"
+
+[node name="Save3Button" type="Button" parent="VBoxContainer/CenterContainer/HBoxContainer"]
+custom_minimum_size = Vector2(200, 100)
+layout_mode = 2
+focus_neighbor_left = NodePath("../Save2Button")
+text = "Save 3"
