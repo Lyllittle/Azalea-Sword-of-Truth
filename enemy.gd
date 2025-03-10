@@ -2,6 +2,9 @@ extends Area2D
 
 # __________ VARIABLES AND CONSTANTS __________
 
+var velocity = 0
+var direction
+
 var special_effect : String
 var local_difficulty
 var SPRAY_ANGLE = 90
@@ -23,7 +26,7 @@ var burst_angles = []
 
 var traits = {}
 
-var zigzag_amplitude = 500
+var zigzag_amplitude = 500.0
 var zigzag_frequency = 1.5
 var zigzag_speed = 50
 var zigzag_vertical_speed = 250
@@ -156,6 +159,12 @@ signal died(damage_to_boss)
 
 # __________ FUNCTIONS __________
 
+func move_to(destination: Vector2):
+	self.position = destination
+
+func process_velocity():
+	move_to(get_global_position() + velocity * Vector2(direction))
+
 func move(delta):
 	match traits["moving_pattern"]:
 		"wander":
@@ -240,7 +249,7 @@ func initialize_patrol():
 	var dome_down = [up_pos]
 
 	for i in range(patrol_dome_resolution):
-		var angle = deg_to_rad(90+ i * 180 / (patrol_dome_resolution-1))
+		var angle = deg_to_rad(float(90+ i * 180) / (patrol_dome_resolution-1))
 
 		var x_offset = patrol_dome_radius * cos(angle)
 		var y_offset = patrol_dome_radius * sin(angle)
@@ -283,63 +292,14 @@ func patrol(delta):
 				var current_pos = dome_points[current_index]
 				var next_pos = dome_points[min(current_index+1,dome_points.size()-1)]
 				#print("delta is "+str(t2-(float(current_index) / (dome_points.size()-1))))
-				self.position = current_pos.lerp(next_pos, dome_points.size()*(t2-(float(current_index) / (dome_points.size()-1))))
+				move_to(current_pos.lerp(next_pos, dome_points.size()*(t2-(float(current_index) / (dome_points.size()-1)))))
 			else:
 				var t = 1.0 - (patrol_timer / patrol_ease_duration)
 				t = t * t * (3 - 2 * t)
 				var target_position = patrol_points[patrol_index]
-				self.position = self.position.lerp(target_position, t)
+				move_to(self.position.lerp(target_position, t))
 
 
-#func initialize_patrol():
-	#patrol_points = []
-	#patrol_index = 0
-#
-	#var start_pos = self.position
-	#var screen_size = get_viewport_rect().size
-#
-	#var up_pos = start_pos + Vector2(0, float(screen_size.y)*0.75*0.5)
-	#var down_pos = start_pos - Vector2(0, float(screen_size.y)*0.75*0.5)
-	#var dome_up = []
-	#var dome_down = []
-#
-	#for i in range(patrol_dome_resolution):
-		#var angle = deg_to_rad(90 + i * 180 / patrol_dome_resolution)
-#
-		#var x_offset = patrol_dome_radius * cos(angle)
-		#var y_offset = patrol_dome_radius * sin(angle)
-#
-		#dome_up.append(start_pos + Vector2(x_offset, y_offset))
-#
-		#dome_down.append(start_pos + Vector2(x_offset, -y_offset))
-#
-	#patrol_points.append(up_pos)
-	#patrol_points.append(down_pos)
-	#patrol_points += dome_up
-	#patrol_points.append(down_pos)
-	#patrol_points.append(up_pos)
-	#patrol_points += dome_down
-#
-	#patrol_timer = patrol_ease_duration
-#
-#func patrol(delta):
-	#if patrol_timer > 0:
-		#patrol_timer -= delta
-		#var t = 1.0 - (patrol_timer / patrol_ease_duration)
-		#t = t * t * (3 - 2 * t)
-#
-		#var target_position = patrol_points[patrol_index]
-		#self.position = self.position.lerp(target_position, t)
-#
-		#if self.position.distance_to(target_position) < 5:
-			#patrol_timer = 0
-	#else:
-		#patrol_index += 1
-		#if patrol_index >= patrol_points.size():
-			#patrol_index = 0
-		#patrol_timer = patrol_ease_duration
-
-	
 func initialize_orbit():
 	var screen_size = get_viewport_rect().size
 	var player_position = GlobalData.player.global_position
@@ -358,7 +318,7 @@ func orbit(delta):
 		var t = 1.0 - (orbit_timer / wander_ease_duration)
 		t = t * t * (3 - 2 * t)
 
-		position = position.lerp(orbit_target_position, t)
+		move_to(position.lerp(orbit_target_position, t))
 
 		var player_position = GlobalData.player.global_position
 		var attraction = (player_position - position).normalized() * orbit_pull_strength * delta
@@ -423,8 +383,6 @@ func perform_hover_oscillation(delta):
 
 		
 func initialize_zigzag():
-	var screen_width = get_viewport_rect().size.x
-	var screen_height = get_viewport_rect().size.y
 	var rng = RandomNumberGenerator.new()
 	rng.randomize()
 
@@ -476,7 +434,7 @@ func wander(delta):
 		var t = 1.0 - (wander_timer / wander_ease_duration)
 		t = t * t * (3 - 2 * t)
 
-		position = position.lerp(wander_target_position, t)
+		move_to(position.lerp(wander_target_position, t))
 
 		if position.distance_to(wander_target_position) < 10:
 			initialize_wander()
@@ -553,7 +511,7 @@ func _on_shooting_timer_timeout(timer):
 		projectile.position = position
 		get_parent().add_child(projectile)
 	elif current_shooting_mode == "rays":
-		var angle = ray_angles[int(projectile_count)/10]
+		var angle = ray_angles[floor(float(projectile_count)/10)]
 		var projectile = preload("res://enemy_projectile.tscn").instantiate()
 		projectile.damage = traits["damage"]
 		projectile.rotation_degrees = angle
@@ -587,8 +545,8 @@ func shoot_rays_over_time():
 		start_shooting()
 
 func shoot_in_circle():
-	var angle_step = 360.0 / traits["projectile_count"]
-	var random_increment = RandomNumberGenerator.new().randi_range(0, angle_step)
+	angle_step = 360.0 / traits["projectile_count"]
+	random_increment = RandomNumberGenerator.new().randi_range(0, angle_step)
 	for i in range(traits["projectile_count"]):
 		var projectile = preload("res://enemy_projectile.tscn").instantiate()
 		var angle = i * angle_step + random_increment
