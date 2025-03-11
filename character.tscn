@@ -34,7 +34,6 @@ drag_vertical_enabled = true
 drag_left_margin = 0.05
 drag_top_margin = 0.05
 drag_right_margin = 0.05
-drag_bottom_margin = 0.05
 editor_draw_limits = true
 editor_draw_drag_margin = true
 script = ExtResource("2_pjt0s")

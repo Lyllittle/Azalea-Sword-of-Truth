@@ -57,11 +57,15 @@ func _ready() -> void:
 			is_stunning = true
 
 func _process(delta):
-	if Input.is_action_pressed("Shoot") and timer.is_stopped():
+	if Input.is_action_pressed("Shoot") and timer.is_stopped() :
 		timer.start()
+		Input.start_joy_vibration(0, 0.5, 0.25, 0.5)
 		var projectile = preload("res://player_projectile.tscn").instantiate()
 		projectile.is_projectile_area_damage = area_of_effect
-		projectile.position = self.position
+		var aim_direction = Input.get_vector("Aim Left", "Aim Right", "Aim Up", "Aim Down")
+		if aim_direction != Vector2.ZERO:
+			projectile.rotation = aim_direction.angle()
+		projectile.position = self.position + Vector2(cos(projectile.rotation), sin(projectile.rotation)) * 50
 		projectile.fastness_multiplier = projectile_velocity
 		projectile.custom_animation = custom_animation
 		projectile.area_of_effect_type = area_of_effect_type
