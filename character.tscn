@@ -1,6 +1,7 @@
-[gd_scene load_steps=5 format=3 uid="uid://dgojbjvcov1cv"]
+[gd_scene load_steps=6 format=3 uid="uid://dgojbjvcov1cv"]
 
 [ext_resource type="Script" uid="uid://brmsclocohhc2" path="res://character.gd" id="1_3lg4t"]
+[ext_resource type="Script" uid="uid://cmy320pimf3dh" path="res://camera_2d.gd" id="2_pjt0s"]
 
 [sub_resource type="Gradient" id="Gradient_5q5tr"]
 colors = PackedColorArray(0.756863, 0, 0.658824, 1, 0.898039, 0.67451, 0.72549, 1)
@@ -21,3 +22,19 @@ texture = SubResource("GradientTexture2D_7lxxn")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_ic78b")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+limit_left = 0
+limit_top = 0
+limit_right = 2000
+limit_bottom = 2000
+position_smoothing_enabled = true
+drag_horizontal_enabled = true
+drag_vertical_enabled = true
+drag_left_margin = 0.05
+drag_top_margin = 0.05
+drag_right_margin = 0.05
+drag_bottom_margin = 0.05
+editor_draw_limits = true
+editor_draw_drag_margin = true
+script = ExtResource("2_pjt0s")

@@ -3,7 +3,6 @@ extends HBoxContainer
 var minion_icon_scene = preload("res://minion_icon.tscn")
 
 func _ready() -> void:
-	update_queue_display()
 	get_parent().enemies_created.connect(update_queue_display)
 
 func update_queue_display():

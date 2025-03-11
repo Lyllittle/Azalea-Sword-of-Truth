@@ -19,6 +19,7 @@ var projectile_velocity = 1.0
 var is_piercing = false
 var is_stunning = false
 
+
 func _ready() -> void:
 	remaining_to_melee = number_of_hits_before_melee
 	timer = Timer.new()
@@ -86,14 +87,7 @@ func _process(delta):
 	if not(Input.is_action_pressed("ui_left") or Input.is_action_pressed("ui_up") or Input.is_action_pressed("ui_down") or Input.is_action_pressed("ui_right")):
 		velocity = velocity.move_toward(Vector2.ZERO, friction * speed)
 	position += velocity * delta
-
-	clamp_to_screen()
-
-
-func clamp_to_screen():
-	var viewport = get_viewport_rect()
-	position.x = clamp(position.x, 0, viewport.size.x)
-	position.y = clamp(position.y, 0, viewport.size.y)
+	position = position.clamp(get_parent().arena_rect.position, get_parent().arena_rect.end)
 
 func take_damage(damage):
 	if timer_immunity.is_stopped():

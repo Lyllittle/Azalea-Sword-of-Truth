@@ -6,13 +6,15 @@ extends Control
 @export var player_spawn_position: Vector2
 
 var active_attack = {}
-
+var arena_rect = Rect2(0, 0, 2000, 2000)
 var player = null
 var enemies = []  # Array to track spawned enemies
+var spawn_center
 
 func prepare():
-	var screen_size = get_viewport_rect().size
-	player_spawn_position = Vector2(float(screen_size.x) * 0.25, float(screen_size.y) / 2)
+	var screen_size = arena_rect
+	spawn_center = Vector2(screen_size.end.x-screen_size.position.x,screen_size.end.y-screen_size.position.y)
+	player_spawn_position = Vector2(float(screen_size.end.x-screen_size.position.x) * 0.25, float(screen_size.end.y-screen_size.position.y) / 2)
 	GlobalData.combat_ongoing = true
 	spawn_player()
 	spawn_enemies()
@@ -40,7 +42,7 @@ func spawn_enemies():
 		var enemy_scene = enemy_data.get("enemy")
 		var spawn_pos = enemy_data.get("spawn_position")
 		if enemy_scene and spawn_pos:
-			enemy_scene.position = spawn_pos
+			enemy_scene.position = spawn_center + spawn_pos
 			add_child(enemy_scene)
 			enemies.append(enemy_scene)
 		else:

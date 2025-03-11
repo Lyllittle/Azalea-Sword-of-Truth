@@ -12,6 +12,8 @@ var minion_traits_to_display = {"shooting_patterns":"","moving_pattern":"","warp
 
 func _ready():
 	rng.randomize()
+	GlobalData.enemy_killed.connect(generate_wave)
+	GlobalData.player_died.connect(generate_wave)
 	setup_health_bar()
 	generate_wave()
 
@@ -30,6 +32,7 @@ func generate_wave():
 		duplicate.traits = minion.traits
 		wave.append({"enemy":add_modifications(duplicate),"spawn_position":spawn_positions[i]})
 	GlobalData.enemies = wave
+	enemies_created.emit()
 
 func add_modifications(minion):
 	return minion
@@ -46,14 +49,12 @@ func setup_health_bar():
 	)
 
 func calculate_wave_size() -> int:
-	return rng.randi_range(1, 4)  # 1-4 enemies per wave
+	return rng.randi_range(2, 5)
 
 func generate_spawn_positions(amount: int) -> Array:
 	var positions = []
-	var base_x = screen_size.x * 0.75
-	var base_y = screen_size.y / 2
 	for i in amount:
-		positions.append(Vector2(base_x, base_y + (i * 20 - float(amount) / 2 * 20)))
+		positions.append(Vector2(0, i * 80 - float(amount) / 2 * 80))
 	return positions
 
 func generate_traits_for_display():

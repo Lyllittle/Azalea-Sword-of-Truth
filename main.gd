@@ -21,8 +21,8 @@ func _hide_menu():
 		menu.queue_free()
 
 func _start_game_please():
-	if $MainLayer.get_children().all(func(child): return !child.is_in_group("select_screen")):
-		$MainLayer.add_child(selection_screen)
+	if $CanvasLayer/Combat/MainLayer.get_children().all(func(child): return !child.is_in_group("select_screen")):
+		$CanvasLayer/Combat/MainLayer.add_child(selection_screen)
 	else :
 		selection_screen.visible = true
 
@@ -30,4 +30,4 @@ func _start_combat_please(active_attack):
 	var combat_scene = preload("res://combat.tscn").instantiate()
 	combat_scene.active_attack = active_attack
 	combat_scene.enemies_to_spawn = GlobalData.enemies
-	$MainLayer.add_child(combat_scene)
+	$CanvasLayer/Combat/MainLayer.add_child(combat_scene)

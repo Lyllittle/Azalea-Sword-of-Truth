@@ -1,13 +1,18 @@
-[gd_scene load_steps=2 format=3 uid="uid://68crhnqcrara"]
+[gd_scene load_steps=3 format=3 uid="uid://68crhnqcrara"]
 
 [ext_resource type="Script" uid="uid://b3nt1t47ml2n8" path="res://combat_control.gd" id="1_mfcso"]
 
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_raif2"]
+load_path = "res://.godot/imported/proxy-image.png-9e684477eb0d581fd7feaae396ad60e4.ctex"
+
 [node name="Combat" type="Control"]
-custom_minimum_size = Vector2(500, 500)
 layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
+anchors_preset = 0
 script = ExtResource("1_mfcso")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+custom_minimum_size = Vector2(2000, 2000)
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+texture = SubResource("CompressedTexture2D_raif2")
