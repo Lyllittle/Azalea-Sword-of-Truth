@@ -326,7 +326,7 @@ var current_save
 
 var difficulty = 5
 
-var minion
+var enemies
 
 var combat_ongoing = false
 

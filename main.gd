@@ -26,8 +26,8 @@ func _start_game_please():
 	else :
 		selection_screen.visible = true
 
-func _start_combat_please(active_attack, scene):
+func _start_combat_please(active_attack):
 	var combat_scene = preload("res://combat.tscn").instantiate()
 	combat_scene.active_attack = active_attack
-	combat_scene.enemy = scene
+	combat_scene.enemies_to_spawn = GlobalData.enemies
 	$MainLayer.add_child(combat_scene)

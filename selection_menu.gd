@@ -167,7 +167,7 @@ func _on_button_pressed(i, action_type):
 			GlobalData.set_stat("mana",GlobalData.game_data["stats"]["mana"]-GlobalData.base_spells[GlobalData.game_data["spells"][i]]["mana_cost"])
 			last_spell_selected = i
 			GlobalData.current_attack_damage = GlobalData.base_spells[GlobalData.game_data["spells"][i]]["damage"]
-			GlobalData.start_combat.emit(GlobalData.base_spells[GlobalData.game_data["spells"][i]],GlobalData.minion)
+			GlobalData.start_combat.emit(GlobalData.base_spells[GlobalData.game_data["spells"][i]])
 			visible = false
 			current_state = "selection"
 	elif action_type == "attack":
@@ -175,6 +175,6 @@ func _on_button_pressed(i, action_type):
 			GlobalData.set_stat("mana",GlobalData.game_data["stats"]["mana"]-GlobalData.base_attacks[GlobalData.game_data["attacks"][i]]["mana_cost"])
 			last_attack_selected = i
 			GlobalData.current_attack_damage = GlobalData.base_attacks[GlobalData.game_data["attacks"][i]]["damage"]
-			GlobalData.start_combat.emit(GlobalData.base_attacks[GlobalData.game_data["attacks"][i]],GlobalData.minion)
+			GlobalData.start_combat.emit(GlobalData.base_attacks[GlobalData.game_data["attacks"][i]])
 			visible = false
 			current_state = "selection"

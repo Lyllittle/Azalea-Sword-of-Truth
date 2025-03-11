@@ -17,12 +17,11 @@ const SPECIAL_ICONS = {
 	
 }
 
-func set_patterns(shooting_pattern, movement_pattern, specialty, difficulty):
+func set_patterns(shooting_pattern, movement_pattern, warp_level, number):
 	if shooting_pattern in SHOOTING_PATTERN_ICONS.keys():
 		$GridContainer/ShootPatternIcon.texture = SHOOTING_PATTERN_ICONS[shooting_pattern]
 	if shooting_pattern in MOVE_PATTERN_ICONS.keys():
 		$GridContainer/MovePatternIcon.texture = MOVE_PATTERN_ICONS[shooting_pattern]
-	if shooting_pattern in SPECIAL_ICONS.keys():
-		$GridContainer/SpecialEffectIcon.texture = SPECIAL_ICONS[shooting_pattern]
-	$GridContainer/Label.text = str(difficulty) + " "
+	$GridContainer/WarpLabel.text = str(warp_level) + " "
+	$GridContainer/EnemiesNumberLabel.text = str(number) + " "
 	

@@ -9,13 +9,12 @@ func _ready() -> void:
 func update_queue_display():
 	for child in get_children():
 		child.queue_free()
-	var next_minions = get_parent().minion_queue
-	for minion in next_minions.slice(0, 3):
-		var icon = minion_icon_scene.instantiate()
-		icon.set_patterns(
-			minion.traits["shooting_patterns"],
-			minion.traits["moving_pattern"],
-			minion.special_effect,
-			minion.local_difficulty
-		)
-		add_child(icon)
+	var next_minions_traits = get_parent().generate_traits_for_display()
+	var icon = minion_icon_scene.instantiate()
+	icon.set_patterns(
+		next_minions_traits["shooting_patterns"],
+		next_minions_traits["moving_pattern"],
+		next_minions_traits["warp_level"],
+		next_minions_traits["enemies_number"]
+	)
+	add_child(icon)

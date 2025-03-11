@@ -6,7 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://yeby0ddokfxe" path="res://Assets/SpriteSheets/healthbartexture.tres" id="3_e1vrg"]
 
 [node name="Boss" type="VBoxContainer"]
-custom_minimum_size = Vector2(400, 150)
+custom_minimum_size = Vector2(200, 150)
 size_flags_horizontal = 3
 size_flags_vertical = 3
 script = ExtResource("1_2wbgb")
@@ -38,7 +38,9 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="HBoxContainer" type="HBoxContainer" parent="."]
-custom_minimum_size = Vector2(400, 100)
+custom_minimum_size = Vector2(100, 100)
 layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
 alignment = 1
 script = ExtResource("2_tempe")

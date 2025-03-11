@@ -1,7 +1,8 @@
-[gd_scene load_steps=5 format=3 uid="uid://bn0w10h3inhxo"]
+[gd_scene load_steps=6 format=3 uid="uid://bn0w10h3inhxo"]
 
 [ext_resource type="Script" uid="uid://1vn65ut3ifhn" path="res://minion_icon.gd" id="1_64xsb"]
 [ext_resource type="LabelSettings" uid="uid://bbe3jc2iwquvr" path="res://Assets/Settings/SelectMenuButtonLabelSettings.tres" id="2_4f2sq"]
+[ext_resource type="LabelSettings" uid="uid://bnxr6hpyp4mnv" path="res://Assets/Settings/WarpLabelSettings.tres" id="2_pugso"]
 
 [sub_resource type="Gradient" id="Gradient_o23oq"]
 
@@ -40,14 +41,17 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 stretch_mode = 5
 
-[node name="SpecialEffectIcon" type="TextureRect" parent="GridContainer"]
+[node name="WarpLabel" type="Label" parent="GridContainer"]
 custom_minimum_size = Vector2(50, 50)
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
-stretch_mode = 5
+text = "1"
+label_settings = ExtResource("2_pugso")
+horizontal_alignment = 2
+vertical_alignment = 2
 
-[node name="Label" type="Label" parent="GridContainer"]
+[node name="EnemiesNumberLabel" type="Label" parent="GridContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3

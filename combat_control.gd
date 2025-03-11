@@ -40,10 +40,9 @@ func spawn_enemies():
 		var enemy_scene = enemy_data.get("enemy")
 		var spawn_pos = enemy_data.get("spawn_position")
 		if enemy_scene and spawn_pos:
-			var new_enemy = enemy_scene.instantiate()
-			new_enemy.position = spawn_pos
-			add_child(new_enemy)
-			enemies.append(new_enemy)
+			enemy_scene.position = spawn_pos
+			add_child(enemy_scene)
+			enemies.append(enemy_scene)
 		else:
 			print("Invalid enemy data in enemies_to_spawn array")
 
