@@ -1,23 +1,21 @@
 extends Control
 
 @export var player_scene = preload("res://character.tscn")
-var base_scene_enemy = preload("res://enemy.tscn")
+@export var enemies_to_spawn: Array = []  # Array of dictionaries: [{"enemy": EnemyScene, "spawn_position": Vector2}]
 
 @export var player_spawn_position: Vector2
-@export var enemy_spawn_position: Vector2
 
 var active_attack = {}
 
 var player = null
-var enemy = null
+var enemies = []  # Array to track spawned enemies
 
 func prepare():
 	var screen_size = get_viewport_rect().size
-	enemy_spawn_position = Vector2(float(screen_size.x) * 0.75, float(screen_size.y) / 2)
 	player_spawn_position = Vector2(float(screen_size.x) * 0.25, float(screen_size.y) / 2)
 	GlobalData.combat_ongoing = true
 	spawn_player()
-	spawn_enemy()
+	spawn_enemies()
 	
 func _ready():
 	GlobalData.enemy_killed.connect(kill_everything)
@@ -31,32 +29,34 @@ func spawn_player():
 	if player_scene:
 		player = player_scene.instantiate()
 		player.position = player_spawn_position
-		player.active_attack_traits = active_attack["traits"]
+		player.active_attack_traits = active_attack["traits"]  # Ensure "traits" key exists in active_attack
 		GlobalData.player = player
 		add_child(player)
 	else:
 		print("Player scene is not set!")
 
-func spawn_enemy():
-	if enemy == null:
-		enemy = base_scene_enemy.instantiate()
-		enemy.position = enemy_spawn_position
-		print(str(enemy_spawn_position))
-		add_child(enemy)
-	else:
-		enemy.position = enemy_spawn_position
-		print(str(enemy_spawn_position))
-		add_child(enemy)
-
-
+func spawn_enemies():
+	for enemy_data in enemies_to_spawn:
+		var enemy_scene = enemy_data.get("enemy")
+		var spawn_pos = enemy_data.get("spawn_position")
+		if enemy_scene and spawn_pos:
+			var new_enemy = enemy_scene.instantiate()
+			new_enemy.position = spawn_pos
+			add_child(new_enemy)
+			enemies.append(new_enemy)
+		else:
+			print("Invalid enemy data in enemies_to_spawn array")
 
 func kill_everything():
 	if player and is_instance_valid(player):
 		remove_child(player)
 		player.queue_free()
-	if enemy and is_instance_valid(enemy):
-		remove_child(enemy)
-		enemy.queue_free()
-	for children in get_children():
-		children.queue_free()
+	for enemy in enemies:
+		if enemy and is_instance_valid(enemy):
+			remove_child(enemy)
+			enemy.queue_free()
+	enemies.clear()
+	# Clean up any remaining children
+	for child in get_children():
+		child.queue_free()
 	queue_free()
