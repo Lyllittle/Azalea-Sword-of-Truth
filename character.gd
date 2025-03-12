@@ -21,44 +21,57 @@ var is_stunning = false
 
 
 func _ready() -> void:
+	# Initialize timers
 	remaining_to_melee = number_of_hits_before_melee
+	
 	timer = Timer.new()
 	timer.wait_time = shoot_cooldown
 	timer.one_shot = true
 	add_child(timer)
+	
 	timer_immunity = Timer.new()
 	timer_immunity.wait_time = immunity_frames
 	timer_immunity.one_shot = true
 	add_child(timer_immunity)
-	print("my traits are "+str(active_attack_traits))
-	for traits in active_attack_traits:
-		if traits == "quick":
+	
+	print("my traits are " + str(active_attack_traits))
+
+	for trait_unique in active_attack_traits:
+		apply_trait(trait_unique)
+
+
+func apply_trait(trait_unique: String) -> void:
+	match trait_unique:
+		"quick":
 			timer.wait_time = shoot_cooldown / 2
-		elif traits == "defensive_buff":
+		"defensive_buff":
 			timer_immunity.wait_time = immunity_frames * 2
 			is_though = true
-		elif traits == "slower_attack":
+		"slower_attack":
 			timer.wait_time = shoot_cooldown * 1.5
-		elif traits == "area_of_effect":
+		"area_of_effect":
 			self.area_of_effect = true
-		elif traits == "fire":
+		"fire":
 			custom_animation = "fire_projectile"
-		elif traits == "blade_projectile":
+		"blade_projectile":
 			custom_animation = "blade_projectile"
-		elif traits == "explosion":
+		"explosion":
 			area_of_effect_type = "explosion"
-		elif traits == "sharp_projectile":
+		"sharp_projectile":
 			custom_animation = "sharp_projectile"
-		elif traits == "high_velocity":
+		"high_velocity":
 			projectile_velocity = 3.0
-		elif traits == "piercing":
+		"piercing":
 			is_piercing = true
-		elif traits == "stun":
+		"stun":
 			is_stunning = true
+		_:
+			pass
+
 
 func shoot():
 	timer.start()
-	Input.start_joy_vibration(0, Input.get_action_strength("Shoot"), max(0,Input.get_action_strength("Shoot")-0.5)*2, 0.5)
+	Input.start_joy_vibration(0, 0.4, 0, 0.25)
 	var projectile = preload("res://player_projectile.tscn").instantiate()
 	projectile.is_projectile_area_damage = area_of_effect
 	var aim_direction = Input.get_vector("Aim Left", "Aim Right", "Aim Up", "Aim Down")
@@ -84,7 +97,7 @@ func shoot():
 	get_parent().add_child(projectile)
 
 func _process(delta):
-	if (Input.is_action_pressed("Shoot") or Input.get_action_strength("Shoot")>0.1) and timer.is_stopped() :
+	if (Input.is_action_pressed("Shoot") or Input.get_action_strength("Shoot")>0.1 or Input.get_vector("Aim Left", "Aim Right", "Aim Up", "Aim Down").length() >= 0.1) and timer.is_stopped() :
 		shoot()
 	var velocity2 = Input.get_vector("ui_left","ui_right","ui_up","ui_down")
 	velocity += velocity2.normalized() * speed

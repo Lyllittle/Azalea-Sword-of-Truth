@@ -7,9 +7,11 @@ colors = PackedColorArray(0, 0, 0, 1, 0.133196, 0.133196, 0.133196, 1)
 
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_1w55m"]
 gradient = SubResource("Gradient_csfxb")
+width = 32
+height = 32
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_ae2vi"]
-radius = 32.0
+radius = 30.0
 
 [node name="Enemy" type="Area2D" groups=["enemies"]]
 script = ExtResource("1_pmsge")

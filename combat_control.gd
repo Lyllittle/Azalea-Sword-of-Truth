@@ -6,7 +6,7 @@ extends Control
 @export var player_spawn_position: Vector2
 
 var active_attack = {}
-var arena_rect = Rect2(0, 0, 2000, 2000)
+var arena_rect = Rect2(0, 0, 1500, 1500)
 var player = null
 var enemies = []  # Array to track spawned enemies
 var spawn_center
