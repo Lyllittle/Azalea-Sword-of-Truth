@@ -21,7 +21,6 @@ func get_projectile_damage():
 func _ready():
 	self.area_entered.connect(_on_area_entered)
 	speed = get_projectile_speed()
-	self.rotation_degrees = 0
 	if !is_melee:
 		if custom_animation != null:
 			$AnimatedSprite2D.animation = custom_animation
@@ -29,26 +28,34 @@ func _ready():
 			$AnimatedSprite2D.animation = "default"
 	else:
 		$AnimatedSprite2D.animation = "melee_slash"
-		position = position + Vector2(100,0)
-		$AnimatedSprite2D.rotation_degrees = 90
+		position = position + Vector2(cos(rotation), sin(rotation)) * 100
+		$AnimatedSprite2D.rotation_degrees += 90
 		$AnimatedSprite2D.animation_finished.connect(queue_free)
 		
 	$AnimatedSprite2D.play()
 	
 func _process(delta):
 	if GlobalData.combat_ongoing:
-		var collisionscale = $CollisionShape2D.shape.radius
-		var animationscale = $AnimatedSprite2D.scale
-		collisionscale = collisionscale+0.5*collisionscale*delta
-		animationscale = animationscale+0.5*animationscale*delta
+		scale_up_projectile(delta)
 		if !is_melee:
-			position += Vector2(cos(rotation), sin(rotation)) * speed * delta * fastness_multiplier
-			speed = min(speed + speed, MAX_SPEED)
-			var viewport = get_viewport_rect()
-			if position.x > viewport.size.x or position.x < -viewport.size.x:  # Out-of-bounds check
+			move(delta)
+			if is_out_of_bounds():
 				queue_free()
-		else :
-			position = GlobalData.player.position +  + Vector2(100,0)
+		else:
+			position = GlobalData.player.position + Vector2(cos(rotation), sin(rotation)) * 100
+
+func move(delta):
+	position += Vector2(cos(rotation), sin(rotation)) * speed * delta * fastness_multiplier
+	speed = min(speed + speed, MAX_SPEED)
+
+func scale_up_projectile(delta):
+	var collisionscale = $CollisionShape2D.shape.radius
+	var animationscale = $AnimatedSprite2D.scale
+	collisionscale = collisionscale+0.5*collisionscale*delta
+	animationscale = animationscale+0.5*animationscale*delta
+
+func is_out_of_bounds():
+	return !get_parent().arena_rect.grow(100).has_point(self.position)
 
 func _on_area_entered(area):
 	if self.is_projectile_area_damage:

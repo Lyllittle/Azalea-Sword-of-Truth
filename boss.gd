@@ -22,14 +22,16 @@ func generate_wave():
 	minion.local_difficulty = get_difficulty()
 	minion.initialize_enemy(minion.local_difficulty)
 	minion_traits_to_display["shooting_patterns"] = minion.traits["shooting_patterns"]
-	minion_traits_to_display["shooting_patterns"] = minion.traits["moving_pattern"]
+	minion_traits_to_display["moving_pattern"] = minion.traits["moving_pattern"]
 	var size_of_wave = calculate_wave_size()
 	minion_traits_to_display["enemies_number"] = size_of_wave
-	minion.died.connect(_on_enemy_died.bind(minion))
 	var spawn_positions = generate_spawn_positions(size_of_wave)
+	wave = []
 	for i in size_of_wave:
 		var duplicate = minion.duplicate()
 		duplicate.traits = minion.traits
+		duplicate.died.connect(_on_enemy_died.bind(duplicate))
+		active_enemies.append(duplicate)
 		wave.append({"enemy":add_modifications(duplicate),"spawn_position":spawn_positions[i]})
 	GlobalData.enemies = wave
 	enemies_created.emit()
@@ -60,11 +62,14 @@ func generate_spawn_positions(amount: int) -> Array:
 func generate_traits_for_display():
 	return minion_traits_to_display
 
-func _on_enemy_died(damage_to_boss, minion):
+func _on_enemy_died(minion):
 	minion.died.disconnect(_on_enemy_died)
 	active_enemies.erase(minion)
+	minion.queue_free()
+	print(active_enemies)
 	if active_enemies.is_empty():
-		update_boss_health(damage_to_boss)
+		update_boss_health(GlobalData.current_attack_damage)
+		
 		GlobalData.enemy_killed.emit()
 
 func update_boss_health(damage: int):

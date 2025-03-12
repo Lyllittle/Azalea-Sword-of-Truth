@@ -56,35 +56,36 @@ func _ready() -> void:
 		elif traits == "stun":
 			is_stunning = true
 
-func _process(delta):
-	if Input.is_action_pressed("Shoot") and timer.is_stopped() :
-		timer.start()
-		Input.start_joy_vibration(0, 0.5, 0.25, 0.5)
-		var projectile = preload("res://player_projectile.tscn").instantiate()
+func shoot():
+	timer.start()
+	Input.start_joy_vibration(0, Input.get_action_strength("Shoot"), max(0,Input.get_action_strength("Shoot")-0.5)*2, 0.5)
+	var projectile = preload("res://player_projectile.tscn").instantiate()
+	projectile.is_projectile_area_damage = area_of_effect
+	var aim_direction = Input.get_vector("Aim Left", "Aim Right", "Aim Up", "Aim Down")
+	if aim_direction != Vector2.ZERO:
+		projectile.rotation = aim_direction.angle()
+	projectile.position = self.position + Vector2(cos(projectile.rotation), sin(projectile.rotation)) * 50
+	projectile.fastness_multiplier = projectile_velocity
+	projectile.custom_animation = custom_animation
+	projectile.area_of_effect_type = area_of_effect_type
+	if is_piercing:
+		projectile.is_piercing = true
+		projectile.piercing_pierce_remaining = 3
+	if is_stunning:
+		projectile.is_stunning = true
+	remaining_to_melee -= 1
+	if "melee" in active_attack_traits and remaining_to_melee<=0:
 		projectile.is_projectile_area_damage = area_of_effect
-		var aim_direction = Input.get_vector("Aim Left", "Aim Right", "Aim Up", "Aim Down")
-		if aim_direction != Vector2.ZERO:
-			projectile.rotation = aim_direction.angle()
-		projectile.position = self.position + Vector2(cos(projectile.rotation), sin(projectile.rotation)) * 50
-		projectile.fastness_multiplier = projectile_velocity
-		projectile.custom_animation = custom_animation
-		projectile.area_of_effect_type = area_of_effect_type
-		if is_piercing:
-			projectile.is_piercing = true
-			projectile.piercing_pierce_remaining = 3
-		if is_stunning:
-			projectile.is_stunning = true
-		get_parent().add_child(projectile)
-		remaining_to_melee -= 1
-		if "melee" in active_attack_traits and remaining_to_melee<=0:
-			projectile = preload("res://player_projectile.tscn").instantiate()
-			projectile.is_projectile_area_damage = area_of_effect
-			projectile.position = self.position
-			projectile.is_melee = true
-			projectile.area_of_effect_type = ""
-			projectile.is_projectile_area_damage = true
-			get_parent().add_child(projectile)
-			remaining_to_melee = number_of_hits_before_melee
+		projectile.position = self.position
+		projectile.is_melee = true
+		projectile.area_of_effect_type = ""
+		projectile.is_projectile_area_damage = true
+		remaining_to_melee = number_of_hits_before_melee
+	get_parent().add_child(projectile)
+
+func _process(delta):
+	if (Input.is_action_pressed("Shoot") or Input.get_action_strength("Shoot")>0.1) and timer.is_stopped() :
+		shoot()
 	var velocity2 = Input.get_vector("ui_left","ui_right","ui_up","ui_down")
 	velocity += velocity2.normalized() * speed
 	velocity = velocity.limit_length(max_speed)

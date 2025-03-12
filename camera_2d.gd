@@ -6,6 +6,3 @@ func _ready() -> void:
 	limit_top = get_parent().get_parent().arena_rect.position.y -100
 	limit_bottom = get_parent().get_parent().arena_rect.end.y + 100
 	make_current()
-
-func _process(delta: float) -> void:
-	pass

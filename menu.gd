@@ -12,6 +12,3 @@ func _ready():
 
 func reset_save():
 	GlobalData.game_data = GlobalData.default_data
-
-func _process(delta):
-	pass

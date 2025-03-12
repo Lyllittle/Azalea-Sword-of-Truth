@@ -20,12 +20,9 @@ func prepare():
 	spawn_enemies()
 	
 func _ready():
-	GlobalData.enemy_killed.connect(kill_everything)
-	GlobalData.player_died.connect(kill_everything)
+	GlobalData.enemy_killed.connect(_on_enemy_died)
+	GlobalData.player_died.connect(_on_player_died)
 	prepare()
-
-func _process(delta: float) -> void:
-	pass
 
 func spawn_player():
 	if player_scene:
@@ -41,14 +38,21 @@ func spawn_enemies():
 	for enemy_data in enemies_to_spawn:
 		var enemy_scene = enemy_data.get("enemy")
 		var spawn_pos = enemy_data.get("spawn_position")
-		if enemy_scene and spawn_pos:
+		if enemy_scene:
 			enemy_scene.position = spawn_center + spawn_pos
 			add_child(enemy_scene)
 			enemies.append(enemy_scene)
 		else:
 			print("Invalid enemy data in enemies_to_spawn array")
 
+func _on_player_died():
+	kill_everything()
+	
+func _on_enemy_died():
+	kill_everything()
+
 func kill_everything():
+	GlobalData.combat_ongoing = false
 	if player and is_instance_valid(player):
 		remove_child(player)
 		player.queue_free()
@@ -59,5 +63,6 @@ func kill_everything():
 	enemies.clear()
 	# Clean up any remaining children
 	for child in get_children():
-		child.queue_free()
+		if child.name != "TextureRect":
+			child.queue_free()
 	queue_free()

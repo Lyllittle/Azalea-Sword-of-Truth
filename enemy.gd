@@ -155,7 +155,7 @@ var health_ranges = {
 	10: [100, 100]
 }
 
-signal died(damage_to_boss)
+signal died()
 
 # __________ FUNCTIONS __________
 
@@ -561,10 +561,7 @@ func take_damage(damage):
 
 func die():
 	print("Enemy defeated")
-	GlobalData.combat_ongoing = false
-	died.emit(GlobalData.current_attack_damage)
-	GlobalData.enemy_killed.emit()
-	queue_free()
+	died.emit()
 
 func stun(duration):
 	stun_timer = duration
