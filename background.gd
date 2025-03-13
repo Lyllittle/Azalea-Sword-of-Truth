@@ -1,6 +1,6 @@
 extends ColorRect
 
-var mouse_selected = true
+var mouse_selected = false
 var last_mouse_pos = Vector2.ZERO
 
 func _process(delta):
@@ -12,7 +12,6 @@ func _process(delta):
 	if mouse_selected:
 		mouse_pos = get_viewport().get_mouse_position() / Vector2(get_viewport().size)
 	else:
-		mouse_pos = get_viewport_rect().get_center() + Input.get_vector("Aim Left", "Aim Right", "Aim Up", "Aim Down") /3
-	mouse_pos /= 2
+		mouse_pos = Vector2(0.5,0.5) +Input.get_vector("Aim Left", "Aim Right", "Aim Up", "Aim Down") /3
 	material.set_shader_parameter("mouse_pos", mouse_pos)
 	last_mouse_pos = get_viewport().get_mouse_position() / Vector2(get_viewport().size)

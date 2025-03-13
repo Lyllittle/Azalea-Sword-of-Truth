@@ -1,24 +1,41 @@
 [gd_scene load_steps=5 format=3 uid="uid://bw71wvk53mvv"]
 
 [ext_resource type="Script" uid="uid://c2l43qg284i4i" path="res://enemy.gd" id="1_pmsge"]
+[ext_resource type="Shader" uid="uid://b8dgpvh4lw2yu" path="res://enemy.gdshader" id="2_4gyqm"]
 
-[sub_resource type="Gradient" id="Gradient_csfxb"]
-colors = PackedColorArray(0, 0, 0, 1, 0.133196, 0.133196, 0.133196, 1)
-
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_1w55m"]
-gradient = SubResource("Gradient_csfxb")
-width = 32
-height = 32
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_qi2p4"]
+shader = ExtResource("2_4gyqm")
+shader_parameter/outline_color = Color(0, 0, 0, 1)
+shader_parameter/electric_color = Color(0.279262, 0.000450089, 0.0329934, 1)
+shader_parameter/pulse_speed = 5.0
+shader_parameter/outline_width = 0.153
+shader_parameter/radius = 0.83
+shader_parameter/noise_layers = 5
+shader_parameter/noise_speed = 0.307
+shader_parameter/noise_density = 0.965
+shader_parameter/electric_power = 1.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_ae2vi"]
-radius = 30.0
+radius = 70.0
 
 [node name="Enemy" type="Area2D" groups=["enemies"]]
 script = ExtResource("1_pmsge")
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
-texture = SubResource("GradientTexture2D_1w55m")
+[node name="Sprite2D" type="ColorRect" parent="."]
+material = SubResource("ShaderMaterial_qi2p4")
+custom_minimum_size = Vector2(100, 100)
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -50.0
+offset_top = -50.0
+offset_right = 50.0
+offset_bottom = 50.0
+grow_horizontal = 2
+grow_vertical = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_ae2vi")
-debug_color = Color(0.797068, 0, 0.144981, 0.42)
+debug_color = Color(0.796078, 0, 0.145098, 0)
