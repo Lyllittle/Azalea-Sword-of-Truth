@@ -10,17 +10,16 @@ load_path = "res://.godot/imported/arena.jpg-60b9f7a04f1dce0e433c31d583a17e96.ct
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_fvoc2"]
 shader = ExtResource("3_ga4lu")
-shader_parameter/outline_color = Color(0, 0.5, 1, 1)
-shader_parameter/edge_sharpness = 2.0
+shader_parameter/blur_amount = 2.0
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_v7dqf"]
 texture = ExtResource("4_u30h6")
-texture_region_size = Vector2i(128, 128)
+texture_region_size = Vector2i(200, 200)
 0:0/0 = 0
 
 [sub_resource type="TileSet" id="TileSet_syqip"]
 tile_shape = 3
-tile_size = Vector2i(128, 128)
+tile_size = Vector2i(200, 200)
 sources/0 = SubResource("TileSetAtlasSource_v7dqf")
 
 [node name="Combat" type="Control"]

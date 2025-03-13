@@ -47,7 +47,7 @@ float fbm(vec2 x) {
 void fragment() {
     // Normalize fragment coordinates
     vec2 uv = FRAGCOORD.xy * SCREEN_PIXEL_SIZE;
-    
+
     // Modify UVs based on mouse position (assuming mouse_pos is normalized [0,1])
     uv += (mouse_pos - vec2(0.5)) * 0.5;
 
@@ -56,16 +56,16 @@ void fragment() {
 
     // Quantize UVs to create a pixelation effect
     uv = floor(uv / pixel_grid) * pixel_grid;
-    
+
     // Time factor
     float t = TIME * speed;
-    
+
     // Create two layers of noise, one moving forward in time and one backwards
     float n1 = fbm(uv * scale + t);
     float n2 = fbm(uv * (scale * 1.5) - t);
-    
+
     float n = mix(n1, n2, 0.5);
-    
+
 	if (n < 0.40) {
         COLOR = color1; // First color for lowest noise values
     } else if (n < 0.45) {

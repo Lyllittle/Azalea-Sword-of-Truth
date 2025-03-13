@@ -1,18 +1,26 @@
 shader_type canvas_item;
 
-uniform vec3 outline_color : source_color = vec3(0.25, 0.45, 0.9); // Blue color
-uniform float edge_sharpness = 1.0; // Adjust transition smoothness (1.0 = default)
+uniform float blur_amount : hint_range(0, 10) = 1.0;
 
 void fragment() {
-    // Get original tile color
-    vec4 tex_color = texture(TEXTURE, UV);
+    vec4 blurred_color = vec4(0.0);
+    vec2 pixel_size = TEXTURE_PIXEL_SIZE * blur_amount;
     
-    // Calculate luminance (how "white" the pixel is)
-    float luminance = dot(tex_color.rgb, vec3(0.299, 0.587, 0.114));
+    // Gaussian kernel for 3x3 blur (weights sum to 1)
+    float kernel[9] = float[](
+        1.0/16.0, 2.0/16.0, 1.0/16.0,
+        2.0/16.0, 4.0/16.0, 2.0/16.0,
+        1.0/16.0, 2.0/16.0, 1.0/16.0
+    );
     
-    // Create smooth transition between outline and center
-    float alpha = 1.0 - smoothstep(0.0, edge_sharpness, luminance);
+    int index = 0;
+    for(int x = -1; x <= 1; x++) {
+        for(int y = -1; y <= 1; y++) {
+			vec2 offset = vec2(float(x), float(y)) * pixel_size;
+            blurred_color += texture(TEXTURE, UV + offset) * kernel[index];
+            index++;
+        }
+    }
     
-    // Apply final color with gradient transparency
-    COLOR = vec4(outline_color, alpha * tex_color.a);
+    COLOR = blurred_color;
 }

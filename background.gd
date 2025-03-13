@@ -13,5 +13,6 @@ func _process(delta):
 		mouse_pos = get_viewport().get_mouse_position() / Vector2(get_viewport().size)
 	else:
 		mouse_pos = get_viewport_rect().get_center() + Input.get_vector("Aim Left", "Aim Right", "Aim Up", "Aim Down") /3
+	mouse_pos /= 2
 	material.set_shader_parameter("mouse_pos", mouse_pos)
 	last_mouse_pos = get_viewport().get_mouse_position() / Vector2(get_viewport().size)
